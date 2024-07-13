@@ -24,9 +24,9 @@ jobs:
       - name: Deploy to AWS ElasticBeanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
-          region: us-east-1  # Replace with your AWS region
-          aws_access_key: ${{ secrets.YOUR_AWS_ACCESS_KEY_ID }}  # Replace with your AWS access key ID stored in GitHub secrets
-          aws_secret_key: ${{ secrets.YOUR_AWS_SECRET_ACCESS_KEY }}  # Replace with your AWS secret access key stored in GitHub secrets
+          region: ap-south-1  # Replace with your AWS region
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}  # Replace with your AWS access key ID stored in GitHub secrets
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  # Replace with your AWS secret access key stored in GitHub secrets
           application_name: your-application-name  # Replace with your Elastic Beanstalk application name
           environment_name: your-environment-name  # Replace with your Elastic Beanstalk environment name
           version_label: ${{ github.run_number }}  # Optional: you can customize the version label
