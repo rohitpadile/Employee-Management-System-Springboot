@@ -27,8 +27,8 @@ jobs:
           region: ap-south-1  # Replace with your AWS region
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}  # Replace with your AWS access key ID stored in GitHub secrets
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  # Replace with your AWS secret access key stored in GitHub secrets
-          application_name: your-application-name  # Replace with your Elastic Beanstalk application name
-          environment_name: your-environment-name  # Replace with your Elastic Beanstalk environment name
+          application_name: basic-employee-crud-app  # Replace with your Elastic Beanstalk application name
+          environment_name: Basic-employee-crud-app-env-1  # Replace with your Elastic Beanstalk environment name
           version_label: ${{ github.run_number }}  # Optional: you can customize the version label
           use_existing_version_if_available: true
           deployment_package: target/*.jar
