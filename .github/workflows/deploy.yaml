@@ -1,36 +1,36 @@
-name: Deploy Spring Boot Application to AWS Elastic Beanstalk
+name: Deploy to AWS Elastic Beanstalk
 on:
   workflow_dispatch:
-  # workflow_run:
-  #   workflows: ["Build and Test Spring Boot Application"]
-  #   types:
-  #     - completed
+#  push:
+#    branches:
+#      - main
 
 jobs:
   deploy:
-    name: Deploy Spring Boot Application to AWS Elastic Beanstalk
+    name: Deploy to AWS Elastic Beanstalk
     runs-on: ubuntu-latest
-    needs: build-test
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
 
       - name: Download Build Artifact
         uses: actions/download-artifact@v3
         with:
           name: spring-boot-app
-          path: target/
+          path: ./build
 
-      - name: Deploy to AWS ElasticBeanstalk
-        uses: einaregilsson/beanstalk-deploy@v21
+      - name: Deploy to Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v20
         with:
+          application_name: Basic-employee-crud-app  # Replace with your Beanstalk application name
+          environment_name: Basic-employee-crud-app-env-1  # Replace with your Beanstalk environment name
+          version_label: ${{ github.sha }}
           region: ap-south-1  # Replace with your AWS region
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}  # Replace with your AWS access key ID stored in GitHub secrets
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  # Replace with your AWS secret access key stored in GitHub secrets
-          application_name: basic-employee-crud-app  # Replace with your Elastic Beanstalk application name
-          environment_name: Basic-employee-crud-app-env-1  # Replace with your Elastic Beanstalk environment name
-          version_label: ${{ github.run_number }}  # Optional: you can customize the version label
-          use_existing_version_if_available: true
-          deployment_package: target/*.jar
-      
-      - run: echo "Deployment completed successfully!"
+          artifact_path: ./build/target/emp-app.jar  # Replace with the path to your JAR file
