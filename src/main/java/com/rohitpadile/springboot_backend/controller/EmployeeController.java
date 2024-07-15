@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@CrossOrigin(origins = "http://guidebookx.s3-website.ap-south-1.amazonaws.com")
 @RestController
 @RequestMapping("api/v1/")
 public class EmployeeController {
